@@ -2,7 +2,7 @@
 
 # Nome que vai aparecer nas opções de pipi
 name: 'Execução Manual - nivel 1'
-    #Triggers, ou gatilhos de execução
+    #regras de disparo da execução (Triggers, ou gatilhos)
     #Gatlhos de exec manual = workflow_dispach 
 
     
@@ -34,7 +34,9 @@ jobs:
             - name: Teste E2E 
               run: yarn run e2e
             
+              # Passes, Failes, Cancelled 
             - uses: actions/upload-artifact@v4
+              if: ${{! Cancelled() }}
               with: 
                 name: Relatorio de testes
                 path: ./playwright-report
