@@ -33,3 +33,9 @@ jobs:
 
             - name: Teste E2E 
               run: yarn run e2e
+            
+            - uses: actions/upload-artifact@v4
+              with: 
+                name: sRelatorio de testes
+                path: ./playwright-report
+             # run: 
