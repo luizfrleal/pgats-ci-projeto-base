@@ -2,7 +2,7 @@
 #como por exmeplo deploy 
 
 # Nome que vai aparecer nas opções de pipeline
-name: 'Execução por Deploy - nivel 2'
+name: 'Execução por Deploy - nivel 3'
     #Triggers, ou gatilhos de execução
     #Gatlhos de exec após outro workflow = workflow_run
 
