@@ -29,7 +29,7 @@ jobs:
               run: yarn 
 
             - name: Instaladno playwright
-              run: yarn playwright instal 
+              run: yarn playwright install 
 
             - name: Teste E2E 
               run: yarn run e2e
