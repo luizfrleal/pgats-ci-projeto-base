@@ -9,7 +9,7 @@ name: 'Execução por Deploy - nivel 3'
     
 on:
     workflow_run: 
-      workflows: ['01-manual-exec']
+      workflows: ['Execução Manual - nivel 1']
       types:
         - completed
 
