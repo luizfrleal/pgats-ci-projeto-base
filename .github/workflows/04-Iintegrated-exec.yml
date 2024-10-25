@@ -28,13 +28,9 @@ jobs:
             - name: Padronizacao de codigo (Lint)
               run: yarn lint 
 
-            
-              
-
-
-
-        # descrição do job
-    e2e-tests:
+ 
+              # descrição do job
+  e2e-tests: 
             # Maquina que o job vai executar 
         runs-on: ['ubuntu-latest']
 
