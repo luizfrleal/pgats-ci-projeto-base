@@ -1,0 +1,63 @@
+# CI de Nivel 04 - Disparo dentro do fluxo de CI de Desenvolvimento
+
+# Nome que vai aparecer nas opções de pipi
+name: 'Execução Integrada - nivel 4'
+    #regras de disparo da execução (Triggers, ou gatilhos)
+    #Gatlhos de exec manual = workflow_dispach 
+
+    
+on:
+    workflow_dispatch:
+
+    
+    
+jobs:
+    
+  inspection: 
+    runs-on: ['ubuntu-latest']
+
+    steps: 
+            - uses: actions/checkout@v4
+            
+            - name: Instalando yarn 
+              run: npm install -g yarn
+
+            - name: Instalando depedências 
+              run: yarn 
+
+            - name: Padronizacao de codigo (Lint)
+              run: yarn lint 
+
+            
+              
+
+
+
+        # descrição do job
+    e2e-tests:
+            # Maquina que o job vai executar 
+        runs-on: ['ubuntu-latest']
+
+            # passo a passo das ações do job
+        steps: 
+            - uses: actions/checkout@v4
+
+            - name: Instalando Dependências 
+              run: npm install -g yarn
+
+            - name: Instalando depedências 
+              run: yarn 
+
+            - name: Instaladno playwright
+              run: yarn playwright install 
+
+            - name: Teste E2E 
+              run: yarn run e2e
+            
+              # Passes, Failes, Cancelled 
+            - uses: actions/upload-artifact@v4
+              if: ${{! Cancelled() }}
+              with: 
+                name: Relatorio de testes
+                path: ./playwright-report
+             # run: 
