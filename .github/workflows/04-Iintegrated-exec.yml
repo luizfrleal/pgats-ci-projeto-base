@@ -62,6 +62,9 @@ jobs:
 
             - name: Instaladno playwright
               run: yarn playwright install 
+            
+            - name: Subir aplicação local
+              run: yarn start &
 
             - name: Teste E2E 
               run: yarn run e2e
