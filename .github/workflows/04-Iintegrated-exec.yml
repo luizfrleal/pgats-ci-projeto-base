@@ -75,6 +75,6 @@ jobs:
           path: ./playwright-report
         # run:
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [e2e-tests]
+  #deploy:
+    #runs-on: ubuntu-latest
+    #needs: [e2e-tests]
