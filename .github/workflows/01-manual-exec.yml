@@ -1,43 +1,41 @@
-# CI de Nivel 01 - Disparo manual a partir de 1 clique 
+# CI de Nivel 01 - Disparo manual a partir de 1 clique
 
 # Nome que vai aparecer nas opções de pipi
-name: 'Execução Manual - nivel 1'
-    #regras de disparo da execução (Triggers, ou gatilhos)
-    #Gatlhos de exec manual = workflow_dispach 
+name:
+  'Execução Manual - nivel 1'
+  #regras de disparo da execução (Triggers, ou gatilhos)
+  #Gatlhos de exec manual = workflow_dispach
 
-    
 on:
-    workflow_dispatch:
+  workflow_dispatch:
 
-    
-    
 jobs:
+  # descrição do job
+  e2e-tests:
+    # Maquina que o job vai executar
+    runs-on:
+      ['ubuntu-latest']
 
-        # descrição do job
-    e2e-tests:
-            # Maquina que o job vai executar 
-        runs-on: ['ubuntu-latest']
+      # passo a passo das ações do job
+    steps:
+      - uses: actions/checkout@v4
 
-            # passo a passo das ações do job
-        steps: 
-            - uses: actions/checkout@v4
+      - name: Instalando Dependências
+        run: npm install -g yarn
 
-            - name: Instalando Dependências 
-              run: npm install -g yarn
+      - name: Instalando depedências
+        run: yarn
 
-            - name: Instalando depedências 
-              run: yarn 
+      - name: Instaladno playwright
+        run: yarn playwright install
 
-            - name: Instaladno playwright
-              run: yarn playwright install 
+      - name: Teste E2E
+        run: yarn run e2e
 
-            - name: Teste E2E 
-              run: yarn run e2e
-            
-              # Passes, Failes, Cancelled 
-            - uses: actions/upload-artifact@v4
-              if: ${{! Cancelled() }}
-              with: 
-                name: Relatorio de testes
-                path: ./playwright-report
-             # run: 
+        # Passes, Failes, Cancelled
+      - uses: actions/upload-artifact@v4
+        if: ${{! Cancelled() }}
+        with:
+          name: Relatorio de testes
+          path: ./playwright-report
+        # run:

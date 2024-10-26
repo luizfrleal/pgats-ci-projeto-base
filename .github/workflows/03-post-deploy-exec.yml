@@ -1,47 +1,45 @@
-# CI de Nivel 03 - Disparo automático Sempre que outro for concluido, 
-#como por exmeplo deploy 
+# CI de Nivel 03 - Disparo automático Sempre que outro for concluido,
+#como por exmeplo deploy
 
 # Nome que vai aparecer nas opções de pipeline
-name: 'Execução por Deploy - nivel 3'
-    #Triggers, ou gatilhos de execução
-    #Gatlhos de exec após outro workflow = workflow_run
+name:
+  'Execução por Deploy - nivel 3'
+  #Triggers, ou gatilhos de execução
+  #Gatlhos de exec após outro workflow = workflow_run
 
-    
 on:
-    workflow_run: 
-      workflows: ['Execução Manual - nivel 1']
-      types:
-        - completed
+  workflow_run:
+    workflows: ['Execução Manual - nivel 1']
+    types:
+      - completed
 
-    
-    
 jobs:
+  # descrição do job
+  e2e-tests:
+    # Maquina que o job vai executar
+    runs-on:
+      ['ubuntu-latest']
 
-        # descrição do job
-    e2e-tests:
-            # Maquina que o job vai executar 
-        runs-on: ['ubuntu-latest']
+      # passo a passo das ações do job
+    steps:
+      - uses: actions/checkout@v4
 
-            # passo a passo das ações do job
-        steps: 
-            - uses: actions/checkout@v4
+      - name: Instalando Dependências
+        run: npm install -g yarn
 
-            - name: Instalando Dependências 
-              run: npm install -g yarn
+      - name: Instalando depedências
+        run: yarn
 
-            - name: Instalando depedências 
-              run: yarn 
+      - name: Instaladno playwright
+        run: yarn playwright install
 
-            - name: Instaladno playwright
-              run: yarn playwright install 
+      - name: Teste E2E
+        run: yarn run e2e
 
-            - name: Teste E2E 
-              run: yarn run e2e
-            
-              # Passes, Failes, Cancelled 
-            - uses: actions/upload-artifact@v4
-              if: ${{ github.event.workflow_run.conclusion == 'success' }}
-              with: 
-                name: Relatorio de testes
-                path: ./playwright-report
-             # run: 
+        # Passes, Failes, Cancelled
+      - uses: actions/upload-artifact@v4
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        with:
+          name: Relatorio de testes
+          path: ./playwright-report
+        # run:
