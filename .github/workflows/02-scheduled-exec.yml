@@ -8,7 +8,7 @@ name:
 
 on:
   schedule:
-    - cron: '56 8 * * 6'
+    - cron: '57 6 * * 6'
 
 jobs:
   # descrição do job
